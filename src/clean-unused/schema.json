@@ -1,0 +1,22 @@
+{
+    "$schema": "http://json-schema.org/schema",
+    "$id": "clean-unused",
+    "title": "clean unused icons",
+    "type": "object",
+    "description": "Remove unused icons",
+    "properties": {
+      "outputPath": {
+        "type": "string",
+        "description": "outputPath of the build"
+      },
+      "svgRelativePath": {
+        "type": "string",
+        "description": "Relative path of the svg folder from the outputPath",
+        "default": "svg"
+      },
+      "icons": {
+        "type": "array",
+        "description": "icons in use in the app"
+      }
+    }
+   }

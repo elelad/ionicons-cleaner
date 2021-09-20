@@ -1,0 +1,20 @@
+{
+  "$schema": "../node_modules/@angular-devkit/schematics/collection-schema.json",
+  "schematics": {
+    "ionicons-tree-shaking": {
+      "description": "Clean unused icons from output folder and remove reference to those icons from ngsw.json",
+      "factory": "./ionicons-tree-shaking/index#ioniconsTreeShaking",
+      "schema": "./ionicons-tree-shaking/schema.json"
+    },
+    "clean-unused": {
+      "description": "Clean unused icons from output folder",
+      "factory": "./clean-unused/index#cleanUnused",
+      "schema": "./clean-unused/schema.json"
+    },
+    "remove-from-sw": {
+      "description": "remove reference to unused icons from ngsw.json",
+      "factory": "./remove-from-sw/index#removeFromSW",
+      "schema": "./remove-from-sw/schema.json"
+    }
+  }
+}

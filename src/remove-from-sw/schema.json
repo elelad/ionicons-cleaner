@@ -1,0 +1,22 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "$id": "remove-from-sw",
+  "title": "remove not used icons from sw",
+  "type": "object",
+  "description": "Remove not used icons from service worker",
+  "properties": {
+    "outputPath": {
+      "type": "string",
+      "description": "outputPath of the build"
+    },
+    "svgRelativePath": {
+      "type": "string",
+      "description": "Relative path of the svg folder from the outputPath",
+      "default": "svg"
+    },
+    "icons": {
+      "type": "array",
+      "description": "icons in use in the app"
+    }
+  }
+ }
