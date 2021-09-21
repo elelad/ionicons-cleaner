@@ -10,18 +10,29 @@ This repo uses Angular Schematics to remove all not used icons from the output f
 
 
 ## Install
-Run `npm install ionic-tree-shaking`
+Run `npm install ionicons-tree-shaking`
 
 ## How to use
-- Run `schematics ionic-tree-shaking:ionic-tree-shaking` to remove all unused icons from the output folder and from ngsw.json.
+- Run `schematics ionicons-tree-shaking:ionicons-tree-shaking` to remove all unused icons from the output folder and from ngsw.json.
 
-- Run `schematics ionic-tree-shaking:clean-unused` to remove all unused icons from the output folder only.
+- Run `schematics ionicons-tree-shaking:clean-unused` to remove all unused icons from the output folder only.
 
-- Run `schematics ionic-tree-shaking:remove-from-sw` to remove all unused icons from ngsw.json only.
+- Run `schematics ionicons-tree-shaking:remove-from-sw` to remove all unused icons from ngsw.json only.
+
+## Dynamic icons
+If you set icons dynamically, for example getting them from the server, you need then to be in your build but we don't have a way to know about them during th build.
+If you have any of those you may get a warning while trying to use this package. Now you have 2 options:
+1. If you sure the warming is false and you don't have icons that sets dynamically in your code you can use the force-delete option: 
+`schematics ionicons-tree-shaking:ionicons-tree-shaking --force-delete`
+2. To overcome this you can use the whitelist option to list an icons that won't be deleted even if they didn't found in the code.
+For example: `schematics ionicons-tree-shaking:ionicons-tree-shaking --whitelist={add,close,moon} --force-delete`
 
 ## Options
 
 | Option| Description |
 |:---|:---|
-| `--outputPath`     | By default the output path (destination of the build files) is taken from the default project output path in the angular.json file. If you want to run the schematics on a different folder you can pass the path to this option. |
-| `--svgRelativePath`     | By default the svg folder is inside the output folder and called svg. If you store your svg files in a different folder you can change the name using this option. |
+| `--output-path`     | By default the output path (destination of the build files) is `www`. If you want to run the schematics on a different folder you can pass the path to this option. |
+| `--svg-dir`     | By default the svg folder is inside the output folder and called `svg`. If you store your svg files in a different folder you can change the name using this option. |
+| `--sw-svg`     | The name of the svg asset group in the ngsw.json file. Default is `svg`. |
+| `--force-delete`     | Delete icon even if you get the dynamic warning. Use this if you provide whitelist or if you sure the dynamic warning is false and you don't have icons that sets dynamically in your code.  |
+| `--whitelist`     | List of icons that won't be deleted even if they not found in the code.  |

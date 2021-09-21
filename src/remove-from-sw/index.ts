@@ -1,5 +1,5 @@
 import { Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
-import { getIconsList, getOutputPath, updateNgsw } from '../utils/utils';
+import { findIconsInJsFiles, updateNgsw } from '../utils/utils';
 
 
 
@@ -8,18 +8,13 @@ import { getIconsList, getOutputPath, updateNgsw } from '../utils/utils';
 export function removeFromSW(_options: any): Rule {
   // @ts-ignore
   return async (tree: Tree, _context: SchematicContext) => {
-    let outputPath = _options.outputPath;
-    if (!outputPath){
-      outputPath = await getOutputPath(tree);
-    }
+    let {'output-path': outputPath, 'svg-dir': svgDir, 'sw-svg': swSvg, icons, 'force-delete': force, whitelist} = _options;
     
-    let icons = _options.icons;
-    if (!icons) {
-      icons = await getIconsList(tree);
+    if (!icons.length) {
+      icons = findIconsInJsFiles(tree, outputPath, svgDir, force, whitelist);
     }
 
-    const svgRelativePath = _options.svgRelativePath;
-    const newTree = updateNgsw(tree, icons, outputPath, svgRelativePath);
+    const newTree = updateNgsw(tree, icons, outputPath, svgDir, swSvg);
 
     return newTree;
   };

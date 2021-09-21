@@ -5,14 +5,32 @@
     "type": "object",
     "description": "Remove not used icons",
     "properties": {
-      "outputPath": {
+      "output-path": {
         "type": "string",
-        "description": "outputPath of the build"
+        "description": "outputPath of the build",
+        "default": "www"
       },
-      "svgRelativePath": {
+      "svg-dir": {
         "type": "string",
         "description": "Relative path of the svg folder from the outputPath",
         "default": "svg"
+      },
+      "sw-svg": {
+        "type": "string",
+        "description": "svg name in the sw assetGroups",
+        "default": "svg"
+      },
+      "force-delete": {
+        "type": "boolean",
+        "description": "Force delete even if you get dynamic warning",
+        "default": false
+      },
+      "whitelist": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "description": "List of icons that will not delete"
       }
     }
    }

@@ -1,5 +1,5 @@
 import { Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
-import { deleteUnusedIcons, getIconsList, getOutputPath } from '../utils/utils';
+import { deleteUnusedIcons, findIconsInJsFiles } from '../utils/utils';
 
 
 
@@ -8,18 +8,13 @@ import { deleteUnusedIcons, getIconsList, getOutputPath } from '../utils/utils';
 export function cleanUnused(_options: any): Rule {
   // @ts-ignore
   return async (tree: Tree, _context: SchematicContext) => {
-    let outputPath = _options.outputPath;
-    if (!outputPath) {
-      outputPath = await getOutputPath(tree);
-    }
-
-    let icons = _options.icons;
+    let {'output-path': outputPath, 'svg-dir': svgDir, icons, 'force-delete': force, whitelist} = _options;
+    
     if (!icons) {
-      icons = await getIconsList(tree);
+      icons = findIconsInJsFiles(tree, outputPath, svgDir, force, whitelist);
     }
-
-    const svgRelativePath = _options.svgRelativePath;
-    const newTree = deleteUnusedIcons(tree, icons, `${outputPath}/${svgRelativePath}`);
+    
+    const newTree = deleteUnusedIcons(tree, icons, `${outputPath}/${svgDir}`);
 
     return newTree;
   };

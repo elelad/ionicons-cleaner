@@ -1,5 +1,5 @@
 import { chain, Rule, schematic, SchematicContext, Tree } from '@angular-devkit/schematics';
-import { getIconsList, getOutputPath } from '../utils/utils';
+import { findIconsInJsFiles } from '../utils/utils';
 
 
 
@@ -8,16 +8,12 @@ import { getIconsList, getOutputPath } from '../utils/utils';
 export function ioniconsTreeShaking(_options: any): Rule {
   // @ts-ignore
   return async (tree: Tree, _context: SchematicContext) => {
-    let outputPath = _options.outputPath;
-    if (!outputPath){
-      outputPath = await getOutputPath(tree);
-      _options.outputPath = outputPath;
-    }
+    let {'output-path': outputPath, 'svg-dir': svgDir, 'force-delete': force, whitelist} = _options;
     
-    const icons = await getIconsList(tree);
+    const icons = findIconsInJsFiles(tree, outputPath, svgDir, force, whitelist);
 
-    const cleanRole = schematic('clean-unused', {..._options, icons});
-    const swRole = schematic('remove-from-sw', {..._options, icons});
+    const cleanRole = schematic('clean-unused', {..._options, icons}, {interactive: false});
+    const swRole = schematic('remove-from-sw', {..._options, icons}, {interactive: false});
 
     return chain([cleanRole, swRole]);
   };
