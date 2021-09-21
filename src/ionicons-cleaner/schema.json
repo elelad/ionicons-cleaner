@@ -1,6 +1,6 @@
 {
     "$schema": "http://json-schema.org/schema",
-    "$id": "ioniconsTreeShaking",
+    "$id": "ioniconsCleaner",
     "title": "ionicons tree shaking schema",
     "type": "object",
     "description": "Remove not used icons",

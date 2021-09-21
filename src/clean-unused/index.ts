@@ -10,7 +10,7 @@ export function cleanUnused(_options: any): Rule {
   return async (tree: Tree, _context: SchematicContext) => {
     let {'output-path': outputPath, 'svg-dir': svgDir, icons, 'force-delete': force, whitelist} = _options;
     
-    if (!icons) {
+    if (!icons.length) {
       icons = findIconsInJsFiles(tree, outputPath, svgDir, force, whitelist);
     }
     

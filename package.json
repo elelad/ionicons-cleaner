@@ -1,11 +1,11 @@
 {
-  "name": "ionicons-tree-shaking",
+  "name": "ionicons-cleaner",
   "version": "0.0.1",
   "description": "Remove unused ionicons from build output folder and from ngsw.json",
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "watch": "tsc -p tsconfig.json --watch",
-    "run": "schematics .:ionicons-tree-shaking"
+    "run": "schematics .:ionicons-cleaner"
   },
   "keywords": [
     "schematics"

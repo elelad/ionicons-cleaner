@@ -58,6 +58,9 @@ function getAllIconsList(tree: Tree, outputPath: string, svgDir: string): string
 export function findIconsInJsFiles(tree: Tree, outputPath: string, svgDir: string, force: boolean, whitelist: string[]): string[] {
     const { subfiles = [] } = tree.getDir(outputPath);
     const jsFiles = subfiles.filter(f => f.endsWith('.js'));
+    if (!jsFiles.length) return [];
+
+    console.log('Looking for icons in the build bundle');
     
     const icons: Set<string> = new Set(...whitelist);
     const variablesFound: string[] = [];
@@ -82,9 +85,9 @@ export function findIconsInJsFiles(tree: Tree, outputPath: string, svgDir: strin
     if ((variablesFound.length === iconsOfVariables.size) || force) {
         Array.from(iconsOfVariables).map(i => icons.add(i));
     } else {
-        console.warn('\x1b[33m%s\x1b[0m', 'It looks like you have some icons that sets dynamically:', '\n', variablesFound, '\n',
-                'We cant delete all icons without knowing for sure you will not need them', '\n',
-                'To continue use ionicons-whitelist.json file or use --force option', 'color: yellow');
+        console.warn('\x1b[33m%s\x1b[0m', 'It looks like you have some icons that sets dynamically:', '\n', variablesFound);
+        console.warn('\x1b[33m%s\x1b[0m', 'We cant delete all unused icons without knowing for sure you will not need them');
+        console.warn('\x1b[33m%s\x1b[0m', 'To continue use with --whitelist={icon-name,icon-name} with --force-delete option');
         return [];
     }
 
