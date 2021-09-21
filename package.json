@@ -1,6 +1,6 @@
 {
   "name": "ionicons-cleaner",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Remove unused ionicons from build output folder and from ngsw.json",
   "scripts": {
     "build": "tsc -p tsconfig.json",
@@ -8,10 +8,12 @@
     "run": "schematics .:ionicons-cleaner"
   },
   "keywords": [
-    "schematics"
+    "schematics","ionic","ionicons","angular"
   ],
   "author": "Elad Elram",
   "license": "MIT",
+  "homepage": "https://github.com/elelad/ionicons-cleaner",
+  "repository": "github:elelad/ionicons-cleaner",
   "schematics": "./src/collection.json",
   "dependencies": {
     "@angular-devkit/core": "^12.2.6",
