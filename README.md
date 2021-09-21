@@ -38,7 +38,7 @@ For example: `schematics ionicons-cleaner:ionicons-cleaner --whitelist={add,clos
 | `--svg-dir`     | By default the svg folder is inside the output folder and called `svg`. If you store your svg files in a different folder you can change the name using this option. |
 | `--sw-svg`     | The name of the svg asset group in the ngsw.json file. Default is `svg`. |
 | `--force-delete`     | Delete icon even if you get the dynamic warning. Use this if you provide whitelist or if you sure the dynamic warning is false and you don't have icons that sets dynamically in your code.  |
-| `--whitelist`     | List of icons that won't be deleted even if they not found in the code.  |
+| `--whitelist`     | List of icons that won't be deleted even if they not found in the code. |
 
 ## Tested on:
 - Angular 12

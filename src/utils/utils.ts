@@ -1,4 +1,5 @@
 import { Tree } from "@angular-devkit/schematics";
+import { defaultIonicIcons, extractIconNameRegex, findIconsInTextRegex, findIconVariablesInfTextRegex } from "../constants/constants";
 import { VariableMatchData } from "../models/models";
 
 export function deleteUnusedIcons(tree: Tree, usedIcons: string[], svgFullPath: string) {
@@ -62,7 +63,7 @@ export function findIconsInJsFiles(tree: Tree, outputPath: string, svgDir: strin
 
     console.log('Looking for icons in the build bundle');
     
-    const icons: Set<string> = new Set(...whitelist);
+    const icons: Set<string> = new Set([...whitelist, ...defaultIonicIcons]);
     const variablesFound: string[] = [];
     const iconsOfVariables: Set<string> = new Set();
     for (const f of jsFiles) {
@@ -102,18 +103,17 @@ export function findIconsInJsFiles(tree: Tree, outputPath: string, svgDir: strin
 }
 
 function extractIconName(text: string): string {
-    const iconName = text.replace(/"|,|:|(name)|(icon)|(backButtonIcon)|\[|\]|\(|\)/g, '');
+    const iconName = text.replace(extractIconNameRegex, '');
     return iconName;
 }
 
 function findIconsInText(text: string): string[] | null {
-    const regex = /\["name","[\w-]*"\]|"name","[\w-]*"|name:"[\w-]*"|icon:"[\w-]*"|\("backButtonIcon","[\w-]*"\)/g;
+    const regex = findIconsInTextRegex;
     return text.match(regex);
 }
 
 function findIconVariablesInfText(text: string): VariableMatchData {
-    const regexVar = /\("name",[\w-.]*\)/g;
-    const matchVar = text.match(regexVar);
+    const matchVar = text.match(findIconVariablesInfTextRegex);
     const matchData: VariableMatchData = {
         variablesFound: [],
         iconsOfVariables: []
@@ -121,7 +121,7 @@ function findIconVariablesInfText(text: string): VariableMatchData {
     if (matchVar?.length) {
         
         matchVar.map(v => {
-            let variable = v.replace(/"|,|:|(name)|(backButtonIcon)|\[|\]|\(|\)/g, '');
+            let variable = v.replace(extractIconNameRegex, '');
             matchData.variablesFound.push(variable.replace(/.\./, 'this.'));
             variable = variable.replace(/.\./, '');
             const start = `this\\.${variable}`;
