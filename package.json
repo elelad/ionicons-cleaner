@@ -8,7 +8,10 @@
     "run": "schematics .:ionicons-cleaner"
   },
   "keywords": [
-    "schematics","ionic","ionicons","angular"
+    "schematics",
+    "ionic",
+    "ionicons",
+    "angular"
   ],
   "author": "Elad Elram",
   "license": "MIT",
