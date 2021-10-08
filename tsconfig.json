@@ -18,6 +18,7 @@
     "strictNullChecks": true,
     "target": "es6",
     "types": ["jasmine", "node"],
+    "esModuleInterop": true
   },
   "include": ["src/**/*"],
   "exclude": ["src/*/files/**/*"]
